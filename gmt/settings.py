@@ -27,11 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 SECRET_KEY = os.environ['SECRET_KEY']
+# SECRET_KEY = 'django-insecure-2(+3p!bk=-b($o09%0*8z3a1+&4agrz+&!pf*9=i3f*+m&mmsb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['e25-gtm.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['e25gtm.herokuapp.com', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.herokuapp.com']
 
@@ -152,6 +153,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+# SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+# SESSION_COOKIE_AGE = 86400
+# SESSION_SAVE_EVERY_REQUEST = 'True'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = os.environ['SESSION_EXPIRE_AT_BROWSER_CLOSE']
 SESSION_ENGINE = os.environ['SESSION_ENGINE']
 SESSION_COOKIE_AGE = int(os.environ['SESSION_COOKIE_AGE'])
@@ -161,6 +166,12 @@ SESSION_SAVE_EVERY_REQUEST = os.environ['SESSION_SAVE_EVERY_REQUEST']
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'asasasas7699@gmail.com'
+# EMAIL_HOST_PASSWORD = 'DeV@1213'
 EMAIL_BACKEND = os.environ['EMAIL_BACKEND']
 EMAIL_HOST = os.environ['EMAIL_HOST']
 EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
