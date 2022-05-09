@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+download_file
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div id="loader">
+    <div class="loadBar">
+        <img class="animation__shake" src="{% static 'spinning_load.gif' %}" alt="Loading" height="100" >
+        <h5>Hold tight, we're generating files for download...</h5>
+        <p>This can take a moment</p>
+    </div>
+</div>
+
+<div class="form-group" style="margin: 20px;width: 414px;">
+    {% for message in messages %}
+    {% if 'success' in message.tags %}
+    <div class="alert-dismissible fade show alert alert-success" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% if 'error' in message.tags %}
+    <div class="alert-dismissible fade show alert alert-danger" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <a href="/mainform" class="btn btn-outline-dark" name="start_over" id="start_over_id">Start Over</a>
+        <a href="/logout" class="btn btn-secondary" name="sign_out" id="sign_out_id" style="float: right;">Sign Out</a>
+        <br>
+
+        <div style="width: 100%; padding: 10px 60px;">
+            <label>Here are your files:</label>
+            <br>
+            <a download href="/static/server_json_files/{{server_updated_file_name}}" class="btn btn-primary" name="server_file_download" id="download_server_file"
+                style="width: 100%;">Download Server File</a>
+            <br>
+            <a download href="/static/client_json_files/{{client_updated_file_name}}" class="btn btn-primary" name="client_file_download" id="download_client_file"
+                style="width: 100%;">Download Client File</a>
+        <br>
+        
+        </div>
+        <label style="margin-left: 7px;">Your Updated GTM Container Code:</label>
+        <textarea name="Updated_gtm_ontainer_code" id="Updated_gtm_ontainer_code_id" cols="42" rows="12" style="font-size: 15px;margin-left: 7px;"><!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://{{website_subdomain}}.{{website_domain}}/{{gtm_endpoint}}?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{web_container_id}}');</script>
+<!-- End Google Tag Manager --></textarea>
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block content_js %}
+<script src="{% static 'js/download_json_file.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Sing Up
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="form-group" style="margin: 20px;width: 414px;">
+    {% for message in messages %}
+    {% if 'success' in message.tags %}
+    <div class="alert-dismissible fade show alert alert-success" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% if 'error' in message.tags %}
+    <div class="alert-dismissible fade show alert alert-danger" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <input type="text" name="mail" placeholder="Your Email Address..." class="form-control set_mail" id="GET_OTP" aria-label="Example text with button addon" aria-describedby="GET_OTP" maxlength="255" >
+        <div class="row">
+            <div class="col-3">
+                <input type="button" name="Send_code" class="btn btn-primary send_Mail" value="Get OTP" id="send_Email">
+            </div>
+            <div class="col-9">
+                {{ form1.verificationcode }}
+            </div>
+        </div>
+           
+        <input type="submit" name="Login_User" class="btn btn-primary " value="Sign In" style="width: 100%;">
+    </form>
+</div>
+
+{% endblock %}
+
+{% block content_js %}
+<script>
+    document.getElementById("id_verificationcode").required = false;
+</script>
+
+<script src="{% static 'js/singup.js' %}"></script>
+{% endblock %}

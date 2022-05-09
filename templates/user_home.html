@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+USER_HOME
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div id="loader">
+    <div class="loadBar text-center">
+        <img class="animation__shake" src="{% static 'spinning_load.gif' %}" alt="Loading" height="100" >
+        <p>Wait a moment</p>
+    </div>
+</div>
+
+<div class="form-group" style="margin: 20px;width: 414px;">
+    {% for message in messages %}
+    {% if 'success' in message.tags %}
+    <div class="alert-dismissible fade show alert alert-success" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% if 'error' in message.tags %}
+    <div class="alert-dismissible fade show alert alert-danger" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    
+    <h4 class="text-center">Select JSON File Type:</h4>
+    <br>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary " name="Upload_server_file" value="Server .JSON" style="float: right;width: 45%;">
+    </form>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" name="Upload_client_file" value="Client .JSON" style="float: left;width: 45%">
+    </form>
+</div>
+
+{% endblock %}
+</html>
+
+{% block content_js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
